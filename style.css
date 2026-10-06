@@ -1,0 +1,100 @@
+:root {
+  --fond: #1e1f22;
+  --carte: #2b2d31;
+  --champ: #383a40;
+  --texte: #f2f3f5;
+  --gris: #b5bac1;
+  --blurple: #5865f2;
+  --bleu: #2f6bff;
+  --vert: #23a55a;
+  --rouge: #f23f43;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--fond);
+  color: var(--texte);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: linear-gradient(135deg, var(--bleu), var(--blurple));
+  padding: 32px 16px;
+  text-align: center;
+}
+.logo { font-size: 2.4rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+.sous-titre { margin: 8px 0 16px; opacity: .9; }
+
+main {
+  width: 100%;
+  max-width: 760px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: grid;
+  gap: 24px;
+  flex: 1;
+}
+
+.carte { background: var(--carte); border-radius: 12px; padding: 24px; }
+h1, h2 { margin-bottom: 6px; }
+.info { color: var(--gris); font-size: .9rem; margin-bottom: 18px; }
+
+form { display: grid; gap: 14px; }
+.ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label { display: grid; gap: 6px; font-size: .85rem; font-weight: 600; color: var(--gris); text-transform: uppercase; position: relative; }
+
+input, select, textarea {
+  background: var(--champ);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--texte);
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 1rem;
+  text-transform: none;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--blurple); }
+textarea { resize: vertical; }
+.compteur { position: absolute; right: 10px; bottom: 8px; font-size: .75rem; font-weight: 400; }
+
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font: inherit;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter .15s;
+}
+.btn:hover { filter: brightness(1.1); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-discord { background: rgba(255,255,255,.18); }
+.btn-envoyer { background: var(--blurple); font-size: 1rem; }
+
+.message { min-height: 1.2em; font-weight: 600; }
+.message.ok { color: var(--vert); }
+.message.erreur { color: var(--rouge); }
+
+#liste-tickets { list-style: none; display: grid; gap: 10px; }
+#liste-tickets li {
+  background: var(--champ);
+  border-left: 4px solid var(--blurple);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+#liste-tickets .meta { color: var(--gris); font-size: .8rem; }
+#liste-tickets .vide { border: none; color: var(--gris); background: none; padding: 0; }
+
+footer { text-align: center; color: var(--gris); font-size: .8rem; padding: 16px; }
+
+@media (max-width: 560px) {
+  .ligne { grid-template-columns: 1fr; }
+  .logo { font-size: 1.8rem; }
+}

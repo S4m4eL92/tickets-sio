@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickets – Support de la classe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">🎫 <span>Tickets</span></div>
+    <p class="sous-titre">Support de la classe <strong id="nom-classe"></strong></p>
+    <a id="btn-discord" class="btn btn-discord" target="_blank" rel="noopener">Rejoindre le Discord</a>
+  </header>
+
+  <main>
+    <section class="carte">
+      <h1>Ouvrir un ticket</h1>
+      <p class="info">Ton ticket sera envoyé directement sur le serveur Discord de la classe.</p>
+
+      <form id="form-ticket">
+        <div class="ligne">
+          <label>Pseudo Discord *
+            <input type="text" id="pseudo" maxlength="32" required placeholder="ex : samuel_61">
+          </label>
+          <label>Prénom
+            <input type="text" id="prenom" maxlength="32" placeholder="Facultatif">
+          </label>
+        </div>
+
+        <div class="ligne">
+          <label>Catégorie *
+            <select id="categorie" required></select>
+          </label>
+          <label>Priorité *
+            <select id="priorite" required>
+              <option value="🟢 Basse">🟢 Basse</option>
+              <option value="🟠 Moyenne" selected>🟠 Moyenne</option>
+              <option value="🔴 Haute">🔴 Haute</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Sujet *
+          <input type="text" id="sujet" maxlength="100" required placeholder="Résumé en une phrase">
+        </label>
+
+        <label>Description *
+          <textarea id="description" maxlength="1500" rows="6" required placeholder="Explique ton problème en détail…"></textarea>
+          <span class="compteur"><span id="nb-car">0</span>/1500</span>
+        </label>
+
+        <button type="submit" class="btn btn-envoyer" id="btn-envoyer">Envoyer le ticket</button>
+        <p id="message" class="message" role="status"></p>
+      </form>
+    </section>
+
+    <section class="carte">
+      <h2>Mes tickets</h2>
+      <p class="info">Historique enregistré sur ce navigateur uniquement.</p>
+      <ul id="liste-tickets"></ul>
+    </section>
+  </main>
+
+  <footer>Projet BTS SIO – hébergé sur GitHub Pages</footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
