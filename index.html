@@ -4,65 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tickets – Support de la classe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <div class="logo">🎫 <span>Tickets</span></div>
+    <div class="logo"><i class="fa-solid fa-ticket"></i> <span>Tickets</span></div>
     <p class="sous-titre">Support de la classe <strong id="nom-classe"></strong></p>
-    <a id="btn-discord" class="btn btn-discord" target="_blank" rel="noopener">Rejoindre le Discord</a>
+    <a id="btn-discord" class="btn btn-discord" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
   </header>
 
   <main>
     <section class="carte">
-      <h1>Ouvrir un ticket</h1>
+      <h1><i class="fa-solid fa-pen-to-square"></i> Ouvrir un ticket</h1>
       <p class="info">Ton ticket sera envoyé directement sur le serveur Discord de la classe.</p>
 
       <form id="form-ticket">
         <div class="ligne">
-          <label>Pseudo Discord *
+          <label><span><i class="fa-brands fa-discord"></i> Pseudo Discord *</span>
             <input type="text" id="pseudo" maxlength="32" required placeholder="ex : samuel_61">
           </label>
-          <label>Prénom
+          <label><span><i class="fa-solid fa-user"></i> Prénom</span>
             <input type="text" id="prenom" maxlength="32" placeholder="Facultatif">
           </label>
         </div>
 
         <div class="ligne">
-          <label>Catégorie *
+          <label><span><i id="icone-categorie" class="fa-solid fa-tag"></i> Catégorie *</span>
             <select id="categorie" required></select>
           </label>
-          <label>Priorité *
-            <select id="priorite" required>
-              <option value="🟢 Basse">🟢 Basse</option>
-              <option value="🟠 Moyenne" selected>🟠 Moyenne</option>
-              <option value="🔴 Haute">🔴 Haute</option>
-            </select>
+          <label><span><i id="icone-priorite" class="fa-solid fa-circle"></i> Priorité *</span>
+            <select id="priorite" required></select>
           </label>
         </div>
 
-        <label>Sujet *
+        <label><span><i class="fa-solid fa-heading"></i> Sujet *</span>
           <input type="text" id="sujet" maxlength="100" required placeholder="Résumé en une phrase">
         </label>
 
-        <label>Description *
+        <label><span><i class="fa-solid fa-align-left"></i> Description *</span>
           <textarea id="description" maxlength="1500" rows="6" required placeholder="Explique ton problème en détail…"></textarea>
           <span class="compteur"><span id="nb-car">0</span>/1500</span>
         </label>
 
-        <button type="submit" class="btn btn-envoyer" id="btn-envoyer">Envoyer le ticket</button>
+        <button type="submit" class="btn btn-envoyer" id="btn-envoyer"><i class="fa-solid fa-paper-plane"></i> Envoyer le ticket</button>
         <p id="message" class="message" role="status"></p>
       </form>
     </section>
 
     <section class="carte">
-      <h2>Mes tickets</h2>
+      <h2><i class="fa-solid fa-clock-rotate-left"></i> Mes tickets</h2>
       <p class="info">Historique enregistré sur ce navigateur uniquement.</p>
       <ul id="liste-tickets"></ul>
     </section>
   </main>
 
-  <footer>Projet BTS SIO – hébergé sur GitHub Pages</footer>
+  <footer><i class="fa-brands fa-github"></i> Projet BTS SIO – hébergé sur GitHub Pages</footer>
 
   <script src="config.js"></script>
   <script src="script.js"></script>

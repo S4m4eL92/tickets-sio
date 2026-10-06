@@ -5,12 +5,32 @@ $("nom-classe").textContent = CONFIG.nomClasse;
 $("btn-discord").href = CONFIG.lienDiscord;
 
 const selectCategorie = $("categorie");
-CONFIG.categories.forEach((c) => {
-  const opt = document.createElement("option");
-  opt.value = c.id;
-  opt.textContent = c.label;
-  selectCategorie.appendChild(opt);
-});
+const selectPriorite = $("priorite");
+remplirSelect(selectCategorie, CONFIG.categories);
+remplirSelect(selectPriorite, CONFIG.priorites);
+selectPriorite.value = "moyenne";
+
+function remplirSelect(select, items) {
+  items.forEach((item) => {
+    const opt = document.createElement("option");
+    opt.value = item.id;
+    opt.textContent = item.label;
+    select.appendChild(opt);
+  });
+}
+
+// L'icône à côté du label suit la valeur choisie
+function majIcones() {
+  $("icone-categorie").className = trouver(CONFIG.categories, selectCategorie.value).icone;
+  $("icone-priorite").style.color = trouver(CONFIG.priorites, selectPriorite.value).couleur;
+}
+selectCategorie.addEventListener("change", majIcones);
+selectPriorite.addEventListener("change", majIcones);
+majIcones();
+
+function trouver(liste, id) {
+  return liste.find((x) => x.id === id) || liste[0];
+}
 
 // Pré-remplir le pseudo si déjà utilisé
 $("pseudo").value = lireStockage("pseudo", "");
@@ -41,13 +61,14 @@ $("form-ticket").addEventListener("submit", async (e) => {
     return afficherMessage(`Attends encore ${restant} s avant d'envoyer un nouveau ticket.`, "erreur");
   }
 
-  const categorie = CONFIG.categories.find((c) => c.id === selectCategorie.value);
+  const categorie = trouver(CONFIG.categories, selectCategorie.value);
   const ticket = {
     numero: genererNumero(),
     pseudo: $("pseudo").value.trim(),
     prenom: $("prenom").value.trim(),
+    categorieId: categorie.id,
     categorie: categorie.label,
-    priorite: $("priorite").value,
+    priorite: trouver(CONFIG.priorites, selectPriorite.value).label,
     sujet: $("sujet").value.trim(),
     description: $("description").value.trim(),
     date: new Date().toISOString()
@@ -59,7 +80,7 @@ $("form-ticket").addEventListener("submit", async (e) => {
 
   const bouton = $("btn-envoyer");
   bouton.disabled = true;
-  bouton.textContent = "Envoi…";
+  bouton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi…';
 
   try {
     const reponse = await fetch(CONFIG.webhookUrl, {
@@ -77,15 +98,17 @@ $("form-ticket").addEventListener("submit", async (e) => {
 
     $("form-ticket").reset();
     $("pseudo").value = ticket.pseudo;
+    selectPriorite.value = "moyenne";
+    majIcones();
     $("nb-car").textContent = "0";
-    afficherMessage(`✅ Ticket ${ticket.numero} envoyé ! Un membre du staff va te répondre sur Discord.`, "ok");
+    afficherMessage(`Ticket ${ticket.numero} envoyé ! Un membre du staff va te répondre sur Discord.`, "ok");
     afficherTickets();
   } catch (err) {
     console.error(err);
-    afficherMessage("❌ Erreur lors de l'envoi. Vérifie la configuration du webhook ou réessaie plus tard.", "erreur");
+    afficherMessage("Erreur lors de l'envoi. Vérifie la configuration du webhook ou réessaie plus tard.", "erreur");
   } finally {
     bouton.disabled = false;
-    bouton.textContent = "Envoyer le ticket";
+    bouton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Envoyer le ticket';
   }
 });
 
@@ -95,9 +118,10 @@ function construireMessage(t, couleur) {
   return {
     username: "Tickets – Site",
     content: CONFIG.roleStaffId ? `<@&${CONFIG.roleStaffId}> Nouveau ticket !` : "Nouveau ticket !",
+    // Discord n'affiche pas Font Awesome : le message reste en texte simple
     allowed_mentions: { parse: [], roles: CONFIG.roleStaffId ? [CONFIG.roleStaffId] : [] },
     embeds: [{
-      title: `🎫 ${t.numero} — ${t.sujet}`,
+      title: `Ticket ${t.numero} — ${t.sujet}`,
       description: t.description,
       color: couleur,
       fields: [
@@ -117,7 +141,9 @@ function genererNumero() {
 
 function afficherMessage(texte, type) {
   const m = $("message");
-  m.textContent = texte;
+  const icone = document.createElement("i");
+  icone.className = type === "ok" ? "fa-solid fa-circle-check" : "fa-solid fa-triangle-exclamation";
+  m.replaceChildren(icone, " " + texte);
   m.className = "message " + type;
 }
 
@@ -134,7 +160,9 @@ function afficherTickets() {
   historique.forEach((t) => {
     const li = document.createElement("li");
     const titre = document.createElement("strong");
-    titre.textContent = `${t.numero} — ${t.sujet}`;
+    const icone = document.createElement("i");
+    icone.className = trouver(CONFIG.categories, t.categorieId).icone;
+    titre.append(icone, `${t.numero} — ${t.sujet}`);
     const meta = document.createElement("div");
     meta.className = "meta";
     meta.textContent = `${t.categorie} · ${t.priorite} · ${new Date(t.date).toLocaleString("fr-FR")}`;
