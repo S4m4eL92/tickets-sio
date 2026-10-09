@@ -1,19 +1,9 @@
-// ====== CONFIGURATION DU SITE ======
-// À modifier avant de publier sur GitHub Pages.
 const CONFIG = {
-  // Nom affiché en haut du site
   nomClasse: "BTS SIO SISR",
-
-  // Lien d'invitation du serveur Discord (ou lien direct vers le salon du panel Tickets v2)
   lienDiscord: "https://discord.gg/ETCb4GQbx",
-
-  // ID du rôle à mentionner à chaque nouveau ticket (laisser "" pour aucun)
   roleStaffId: "1556637922038382673",
-
-  // Délai minimum entre deux tickets (en secondes) pour limiter le spam
   cooldown: 120,
 
-  // icone : classe Font Awesome 6 (https://fontawesome.com/search?ic=free)
   categories: [
     { id: "technique", label: "Problème technique",    icone: "fa-solid fa-screwdriver-wrench", couleur: 0xe74c3c },
     { id: "cours",     label: "Question sur un cours", icone: "fa-solid fa-book",               couleur: 0x3498db },
