@@ -4,10 +4,6 @@ const CONFIG = {
   // Nom affiché en haut du site
   nomClasse: "BTS SIO SISR",
 
-  // URL du webhook Discord (Paramètres du salon > Intégrations > Webhooks > Copier l'URL)
-  // Attention : elle sera visible dans le code du site : utilise un salon dédié (#tickets-site).
-  webhookUrl: "https://discord.com/api/webhooks/1556959608290152519/YDZnw8rqoiFUMoY1EwxZyIQBk0NB6pjqaQ4Mby7OgkB3T5JYclkr1Wu9ORIgKelqWjfz",
-
   // Lien d'invitation du serveur Discord (ou lien direct vers le salon du panel Tickets v2)
   lienDiscord: "https://discord.gg/ETCb4GQbx",
 
